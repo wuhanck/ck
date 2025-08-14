@@ -158,8 +158,8 @@ _ck_ring_enqueue_reserve_sp(struct ck_ring *ring,
 }
 
 /*
- * This is to be called to commit and make visible a region of previously
- * reserved with reverse_sp.
+ * This commits and makes visible (to dequeue) a region previously reserved
+ * with reserve_sp.
  */
 CK_CC_FORCE_INLINE static void
 _ck_ring_enqueue_commit_sp(struct ck_ring *ring)
@@ -346,7 +346,7 @@ _ck_ring_enqueue_mp(struct ck_ring *ring,
 			/*
 			 * Slow path.  Either the buffer is full or we have a
 			 * stale snapshot of p_head.  Execute a second read of
-			 * p_read that must be ordered wrt the snapshot of
+			 * p_head that must be ordered wrt the snapshot of
 			 * c_head.
 			 */
 			ck_pr_fence_load();
